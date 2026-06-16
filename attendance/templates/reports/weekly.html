@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Weekly Attendance Report</h2>
+
+<form method="GET" class="card p-4 mt-3 mb-4">
+
+    <label>Week Start Date</label>
+    <input type="date" name="start_date" class="form-control mb-3">
+
+    <button type="submit" class="btn btn-primary">
+        Generate Weekly Report
+    </button>
+
+</form>
+
+
+{% if request.GET.start_date %}
+
+<a href="{% url 'export_weekly_excel' %}?start_date={{ request.GET.start_date }}"
+   class="btn btn-success mb-3">
+    Export to Excel
+</a>
+
+{% endif %}
+
+{% if end_date %}
+<div class="alert alert-info">
+    Week End Date: {{ end_date }}
+</div>
+{% endif %}
+
+<table class="table table-bordered table-striped">
+
+    <tr>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+
+    {% if records %}
+        {% for record in records %}
+        <tr>
+            <td>{{ record.student.roll_no }}</td>
+            <td>{{ record.student.name }}</td>
+            <td>{{ record.date }}</td>
+            <td>{{ record.status }}</td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4" class="text-center">
+                Select week start date to generate weekly report.
+            </td>
+        </tr>
+    {% endif %}
+
+</table>
+
+<a href="{% url 'dashboard' %}" class="btn btn-secondary">
+    Back
+</a>
+
+{% endblock %}

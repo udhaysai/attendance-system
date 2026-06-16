@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Mark Attendance</h2>
+
+<h5 class="mb-4">
+    Date: {{ today }}
+</h5>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <table class="table table-bordered table-striped">
+
+        <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Present</th>
+            <th>Absent</th>
+        </tr>
+
+        {% for student in students %}
+
+        <tr>
+
+            <td>{{ student.roll_no }}</td>
+
+            <td>{{ student.name }}</td>
+
+            <td class="text-center">
+                <input
+                    type="radio"
+                    name="status_{{ student.id }}"
+                    value="Present"
+                    required
+                >
+            </td>
+
+            <td class="text-center">
+                <input
+                    type="radio"
+                    name="status_{{ student.id }}"
+                    value="Absent"
+                    required
+                >
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <button type="submit" class="btn btn-success">
+        Save Attendance
+    </button>
+
+</form>
+
+<br>
+
+<a href="{% url 'dashboard' %}" class="btn btn-secondary">
+    Back
+</a>
+
+{% endblock %}

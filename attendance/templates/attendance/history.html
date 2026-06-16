@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Attendance History</h2>
+
+<form method="GET" class="card p-4 mt-3 mb-4">
+
+    <label>Select Date</label>
+    <input type="date" name="date" class="form-control mb-3">
+
+    <button type="submit" class="btn btn-primary">
+        Search
+    </button>
+
+</form>
+
+<table class="table table-bordered table-striped">
+
+    <tr>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+
+    {% if records %}
+
+        {% for record in records %}
+        <tr>
+            <td>{{ record.student.roll_no }}</td>
+            <td>{{ record.student.name }}</td>
+            <td>{{ record.date }}</td>
+            <td>{{ record.status }}</td>
+        </tr>
+        {% endfor %}
+
+    {% else %}
+        <tr>
+            <td colspan="4" class="text-center">
+                Select a date to view attendance.
+            </td>
+        </tr>
+    {% endif %}
+
+</table>
+
+<a href="{% url 'dashboard' %}" class="btn btn-secondary">
+    Back
+</a>
+
+{% endblock %}

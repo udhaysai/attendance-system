@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<div class="row mt-4">
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>Total Students</h5>
+            <h2>{{ total_students }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>Present Today</h5>
+            <h2>{{ present_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>Absent Today</h5>
+            <h2>{{ absent_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>Attendance %</h5>
+            <h2>{{ attendance_percentage }}%</h2>
+        </div>
+    </div>
+
+</div>
+
+<hr>
+
+<a href="{% url 'student_list' %}" class="btn btn-primary">Manage Students</a>
+<a href="{% url 'mark_attendance' %}" class="btn btn-success">Mark Attendance</a>
+<a href="{% url 'attendance_history' %}" class="btn btn-info">Attendance History</a>
+<a href="{% url 'daily_report' %}" class="btn btn-warning">Daily Report</a>
+<a href="{% url 'weekly_report' %}" class="btn btn-secondary">Weekly Report</a>
+<a href="{% url 'monthly_report' %}" class="btn btn-dark">Monthly Report</a>
+
+{% endblock %}
