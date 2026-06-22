@@ -9,6 +9,9 @@ from datetime import timedelta
 from django.http import HttpResponse
 import openpyxl
 from datetime import date, timedelta
+from django.contrib.sessions.models import Session
+from .models import UserSession
+
 
 
 
@@ -27,7 +30,23 @@ def login_view(request):
         )
 
         if user is not None:
+
+            old_session = UserSession.objects.filter(user=user).first()
+
+            if old_session and old_session.session_key:
+                Session.objects.filter(
+                    session_key=old_session.session_key
+                ).delete()
+
             login(request, user)
+
+            UserSession.objects.update_or_create(
+                user=user,
+                defaults={
+                    'session_key': request.session.session_key
+                }
+            )
+
             return redirect('dashboard')
 
         return render(
@@ -76,10 +95,14 @@ def dashboard(request):
         context
     )
 
+@login_required
 def logout_view(request):
-    logout(request)
-    return redirect('login')
 
+    UserSession.objects.filter(user=request.user).delete()
+
+    logout(request)
+
+    return redirect('login')
 
 
 
@@ -409,3 +432,6 @@ def export_monthly_excel(request):
     workbook.save(response)
 
     return response
+
+
+
