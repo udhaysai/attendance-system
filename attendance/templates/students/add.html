@@ -9,19 +9,19 @@
     {% csrf_token %}
 
     <label>Roll Number</label>
-    <input type="text" name="roll_no" class="form-control mb-3">
+   <input type="text" name="roll_no" value="{{ roll_no }}" required>
 
     <label>Name</label>
-    <input type="text" name="name" class="form-control mb-3">
+    <input type="text" name="name" value="{{ name }}" required>
 
     <label>Email</label>
-    <input type="email" name="email" class="form-control mb-3">
+   <input type="email" name="email" value="{{ email }}" required>
 
     <label>Phone</label>
-    <input type="text" name="phone" class="form-control mb-3">
+   <input type="text" name="phone" value="{{ phone }}" required>
 
     <label>Department</label>
-    <input type="text" name="department" class="form-control mb-3">
+   <input type="text" name="department" value="{{ department }}" required>
 
     <button type="submit" class="btn btn-success">
         Save Student

@@ -138,20 +138,40 @@ def student_add(request):
 
     if request.method == 'POST':
 
+        roll_no = request.POST.get('roll_no', '').strip()
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        department = request.POST.get('department', '').strip()
+
+        if not roll_no or not name or not email or not phone or not department:
+            return render(
+                request,
+                'students/add.html',
+                {
+                    'error': 'All fields are required.',
+                    'roll_no': roll_no,
+                    'name': name,
+                    'email': email,
+                    'phone': phone,
+                    'department': department
+                }
+            )
+
         Student.objects.create(
-            roll_no=request.POST['roll_no'],
-            name=request.POST['name'],
-            email=request.POST['email'],
-            phone=request.POST['phone'],
-            department=request.POST['department']
+            roll_no=roll_no,
+            name=name,
+            email=email,
+            phone=phone,
+            department=department
         )
 
         return redirect('student_list')
 
-    return render(
-        request,
-        'students/add.html'
-    )
+    return render(request, 'students/add.html')
+
+
+
 @login_required
 def student_edit(request, id):
     student = Student.objects.get(id=id)
