@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(8us@ie!(1eskbshbyts^ezzkoww$55gidveh2wbs)3h=&o4e+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG =False
 
-ALLOWED_HOSTS = ['udhaysai.pythonanywhere.com']
+ALLOWED_HOSTS = ['Udhaysai.pythonanywhere.com']
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/dashboard/'
